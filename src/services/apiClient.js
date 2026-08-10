@@ -51,8 +51,15 @@ async function handleResponse(response) {
   const data = await response.json().catch(() => null);
 
   if (!response.ok) {
-    const message = data?.message || data?.title || "Something went wrong.";
-    throw new Error(message);
+    const validationMessages = data?.errors
+      ? Object.values(data.errors).flat().filter(Boolean).join(" ")
+      : "";
+    const message = typeof data === "string"
+      ? data
+      : data?.message || data?.detail || data?.title || validationMessages || "Something went wrong.";
+    const error = new Error(message);
+    error.status = response.status;
+    throw error;
   }
 
   return data;
