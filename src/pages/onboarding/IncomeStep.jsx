@@ -64,7 +64,7 @@ function IncomeStep({ onNext }) {
       setLoading(false);
     }
   }
-
+const navigate = useNavigate();
   return (
     <div>
       <h2 className="onboarding-step-title">What's your income?</h2>

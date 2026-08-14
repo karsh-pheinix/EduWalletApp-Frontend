@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { apiGet } from "../services/apiClient";
 import "./DashboardPage.css";
 
@@ -33,6 +34,7 @@ const FINANCIAL_TIPS = [
 ];
 
 function DashboardPage() {
+  const navigate = useNavigate();
   const [summary, setSummary] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
@@ -139,7 +141,13 @@ function DashboardPage() {
       </div>
 
       <div className="dashboard-quick-actions">
-        <button type="button" className="dashboard-action-btn">Create a budget</button>
+        <button
+          type="button"
+          className="dashboard-action-btn"
+          onClick={() => navigate("/budget")}
+        >
+          Create a budget
+        </button>
         <button type="button" className="dashboard-action-btn">Log a transaction</button>
         <button type="button" className="dashboard-action-btn dashboard-action-secondary">
           View reports

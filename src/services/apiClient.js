@@ -57,6 +57,16 @@ async function handleResponse(response) {
     const message = typeof data === "string"
       ? data
       : data?.message || data?.detail || data?.title || validationMessages || "Something went wrong.";
+    
+    // Log detailed error info for debugging
+    console.error(`API Error (${response.status}):`, {
+      status: response.status,
+      statusText: response.statusText,
+      url: response.url,
+      message: message,
+      fullData: data
+    });
+    
     const error = new Error(message);
     error.status = response.status;
     throw error;
