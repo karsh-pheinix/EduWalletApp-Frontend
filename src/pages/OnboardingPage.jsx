@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import WelcomeStep from "./onboarding/WelcomeStep";
+import { completeOnboardingFeedbackSchedule } from "../services/feedbackScheduler";
 import IncomeStep from "./onboarding/IncomeStep";
 import SavingsGoalStep from "./onboarding/SavingsGoalStep";
 import QuizStep from "./onboarding/QuizStep";
@@ -22,6 +22,7 @@ function OnboardingPage() {
     if (step < STEP_LABELS.length - 1) {
       setStep((s) => s + 1);
     } else {
+      completeOnboardingFeedbackSchedule();
       navigate("/dashboard");
     }
   }
@@ -47,8 +48,19 @@ function OnboardingPage() {
 
       <div className="onboarding-progress-wrap">
         <div className="onboarding-progress-label">
-          <span>{STEP_LABELS[step]}</span>
+          <span className="onboarding-current-step">{STEP_LABELS[step]}</span>
           <span>Step {step + 1} of {STEP_LABELS.length}</span>
+        </div>
+        <div className="onboarding-step-dots" aria-label="Onboarding steps">
+          {STEP_LABELS.map((label, index) => (
+            <span
+              key={label}
+              className={index <= step ? "complete" : ""}
+              aria-current={index === step ? "step" : undefined}
+            >
+              {index < step ? "✓" : index + 1}
+            </span>
+          ))}
         </div>
         <div className="onboarding-progress-track">
           <div className="onboarding-progress-fill" style={{ width: `${progressPercent}%` }} />

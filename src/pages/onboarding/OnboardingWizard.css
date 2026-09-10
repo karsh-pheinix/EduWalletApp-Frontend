@@ -1,12 +1,39 @@
 .onboarding-screen {
+  position: relative;
+  isolation: isolate;
   min-height: 100vh;
-  background: linear-gradient(135deg, #fbfaf7 0%, #eef7f2 100%);
+  background: linear-gradient(135deg, #fff8ed 0%, #eefaf7 52%, #edf5ff 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: 'Inter', sans-serif;
   padding: 2rem 1.5rem 3.5rem;
   animation: pageEnter 0.55s ease-out both;
+}
+
+.onboarding-screen::before,
+.onboarding-screen::after {
+  content: '';
+  position: fixed;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.onboarding-screen::before {
+  width: 260px;
+  height: 260px;
+  top: -100px;
+  right: -70px;
+  background: rgba(244, 189, 84, 0.22);
+}
+
+.onboarding-screen::after {
+  width: 220px;
+  height: 220px;
+  bottom: -90px;
+  left: -80px;
+  background: rgba(15, 184, 163, 0.16);
 }
 
 .onboarding-brand {
@@ -16,7 +43,12 @@
   width: 100%;
   max-width: 580px;
   margin-bottom: 2.25rem;
-  color: #17252b;
+  color: var(--text-h);
+}
+
+.onboarding-current-step {
+  color: #087f73;
+  font-weight: 800;
 }
 
 .onboarding-brand-mark {
@@ -32,13 +64,13 @@
 
 .onboarding-brand strong {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   line-height: 1;
 }
 
 .onboarding-brand span {
   margin-top: 0.2rem;
-  color: #6d7b7f;
+  color: #526267;
   font-size: 0.72rem;
 }
 
@@ -63,52 +95,80 @@
   display: flex;
   justify-content: space-between;
   font-size: 0.85rem;
-  color: #6b7280;
+  color: #526267;
   margin-bottom: 0.5rem;
 }
 
 .onboarding-progress-track {
   height: 8px;
-  background: #dfe8e3;
+  background: var(--border);
   border-radius: 999px;
   overflow: hidden;
 }
 
+.onboarding-step-dots {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.45rem;
+  margin: 0.75rem 0 0.9rem;
+}
+
+.onboarding-step-dots span {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: #526267;
+  background: rgba(255, 255, 255, 0.88);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.onboarding-step-dots span.complete {
+  color: #ffffff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
 .onboarding-progress-fill {
   height: 100%;
-  background: #f4bd54;
+  background: var(--accent);
   border-radius: 999px;
   transition: width 0.3s ease;
 }
 
 .onboarding-progress-hint {
   margin-top: 0.6rem;
-  color: #8a9697;
+  color: #526267;
   font-size: 0.74rem;
 }
 
 .onboarding-card {
   width: 100%;
   max-width: 580px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.94);
   border-radius: 18px;
-  border: 1px solid #dfe8e3;
+  border: 1px solid var(--border);
   padding: 2.5rem clamp(1.5rem, 5vw, 3rem);
-  box-shadow: 0 24px 55px rgba(23, 37, 43, 0.09);
+  box-shadow: 0 24px 55px rgba(23, 37, 43, 0.1), 0 8px 0 rgba(8, 127, 115, 0.06);
 }
 
 .onboarding-step-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.55rem;
   font-weight: 700;
-  color: #17252b;
+  color: var(--text-h);
   margin: 0 0 0.4rem;
 }
 
 .onboarding-step-subtitle {
-  color: #6b7280;
+  color: var(--muted);
   font-size: 0.92rem;
-  margin: 0 0 1.75rem;
+  margin: 0 0 1.5rem;
+  line-height: 1.55;
 }
 
 .onboarding-field {
@@ -126,7 +186,7 @@
 .onboarding-input {
   width: 100%;
   padding: 0.65rem 0.85rem;
-  border: 1px solid #e2e5ea;
+  border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 0.92rem;
   font-family: 'Inter', sans-serif;
@@ -142,7 +202,7 @@
   left: 0.7rem;
   top: 50%;
   z-index: 1;
-  color: #087f73;
+  color: var(--accent);
   font-weight: 700;
   transform: translateY(-50%);
   pointer-events: none;
@@ -154,8 +214,20 @@
 
 .onboarding-input:focus {
   outline: none;
-  border-color: #087f73;
+  border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(8, 127, 115, 0.14);
+}
+
+.onboarding-input[aria-invalid="true"] {
+  border-color: #d64545;
+  box-shadow: 0 0 0 3px rgba(214, 69, 69, 0.12);
+}
+
+.onboarding-field-error {
+  margin-top: 0.35rem;
+  color: #b42318;
+  font-size: 0.74rem;
+  line-height: 1.4;
 }
 
 .onboarding-input[type='number'] {
@@ -179,7 +251,150 @@
 }
 
 .onboarding-income-item {
+  padding: 0.85rem 0;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid #f0f1f4;
+}
+
+.onboarding-income-summary {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  background: #f5fbf8;
+  border: 1px solid #cfe1d9;
+  border-radius: 10px;
+}
+
+.onboarding-income-summary strong,
+.onboarding-income-summary span {
+  display: block;
+}
+
+.onboarding-income-summary span {
+  margin-top: 0.25rem;
+  color: #526267;
+  font-size: 0.8rem;
+}
+
+.onboarding-income-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.onboarding-income-actions button,
+.onboarding-done-link {
+  padding: 0;
+  color: #087f73;
+  background: none;
+  border: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.onboarding-income-actions button:last-child {
+  color: #b42318;
+}
+
+.onboarding-income-editor {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 0.6rem;
+  align-items: flex-end;
+}
+
+.onboarding-expense-editor {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr);
+  gap: 0.6rem;
+  align-items: end;
+}
+
+.onboarding-income-date-field {
+  grid-column: 1 / -1;
+}
+
+.onboarding-expense-date-field {
+  grid-column: 1 / -1;
+}
+
+.onboarding-field-help {
+  margin-top: 0.35rem;
+  color: #526267;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.onboarding-done-link {
+  display: block;
+  margin: 0.65rem 0 0 auto;
+}
+
+.onboarding-editor-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(23, 37, 43, 0.42);
+}
+
+.onboarding-editor-modal {
+  width: min(100%, 480px);
+  padding: 1.25rem;
+  background: #ffffff;
+  border: 1px solid #cfe1d9;
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(23, 37, 43, 0.24);
+}
+
+.onboarding-editor-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.onboarding-editor-kicker {
+  color: #087f73;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.onboarding-editor-modal h3 {
+  margin: 0.25rem 0 0;
+  color: #17252b;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.2rem;
+}
+
+.onboarding-editor-close {
+  width: 32px;
+  height: 32px;
+  color: #526267;
+  background: #f0faf8;
+  border: 1px solid #cfe1d9;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.onboarding-editor-save {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.onboarding-expense-item {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr) minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: 0.6rem;
   align-items: flex-end;
   margin-bottom: 0.9rem;
@@ -187,21 +402,16 @@
   border-bottom: 1px solid #f0f1f4;
 }
 
+.onboarding-expense-item .onboarding-field {
+  margin-bottom: 0;
+  min-width: 0;
+}
+
 .onboarding-income-list {
-  max-height: 238px;
-  overflow-y: auto;
+  max-height: none;
+  overflow: visible;
   padding-right: 0.35rem;
   margin-bottom: 1rem;
-  scrollbar-color: #9dc9bd transparent;
-}
-
-.onboarding-income-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.onboarding-income-list::-webkit-scrollbar-thumb {
-  background: #9dc9bd;
-  border-radius: 999px;
 }
 
 .onboarding-income-item .onboarding-field {
@@ -283,22 +493,30 @@
 
 .onboarding-primary-button {
   flex: 1;
-  background: #f4bd54;
-  color: #17252b;
-  border: none;
-  border-radius: 4px;
+  background: #087f73;
+  color: #ffffff;
+  border: 1px solid #087f73;
+  border-radius: 8px;
   padding: 0.8rem 1rem;
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
+  box-shadow: 0 5px 0 #06665e;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
 .onboarding-primary-button:hover:not(:disabled) {
-  background: #e4a83b;
+  background: #06665e;
+  border-color: #06665e;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 0 #04504a;
 }
 
 .onboarding-primary-button:disabled {
-  background: #9bd8cf;
+  background: #b8e3dc;
+  border-color: #b8e3dc;
+  color: #315d58;
+  box-shadow: none;
   cursor: not-allowed;
 }
 
@@ -330,6 +548,11 @@
   font-weight: 700;
   cursor: pointer;
   transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.onboarding-add-btn:hover {
+  background: #e7f8f3;
+  transform: translateY(-1px);
 }
 
 .onboarding-skip-link:hover:not(:disabled) {
@@ -450,6 +673,8 @@
 .onboarding-quiz-option:hover {
   border-color: #0fb8a3;
   background: #f0faf8;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(8, 127, 115, 0.1);
 }
 
 .onboarding-quiz-progress {
@@ -577,7 +802,7 @@
   position: absolute;
   inset: 0 0 auto;
   height: 5px;
-  background: linear-gradient(90deg, #f4bd54 0 38%, #087f73 38% 72%, #8eb9d4 72%);
+  background: #087f73;
 }
 
 .onboarding-step-title {
@@ -631,13 +856,13 @@
 }
 
 .onboarding-quiz-option {
-  border-color: #c9dce9;
-  background: #fbfdff;
+  border-color: #cfe1d9;
+  background: #fcfffd;
 }
 
 .onboarding-quiz-option:hover {
-  border-color: #8eb9d4;
-  background: #eef7fc;
+  border-color: #087f73;
+  background: #f0faf8;
 }
 
 .onboarding-quiz-dot.active {
@@ -651,6 +876,65 @@
 }
 
 @media (max-width: 480px) {
+  .onboarding-screen {
+    padding: 1.25rem 0.85rem 2rem;
+  }
+
+  .onboarding-brand {
+    margin-bottom: 1.4rem;
+  }
+
+  .onboarding-card {
+    padding: 1.5rem 1rem;
+    border-radius: 12px;
+  }
+
+  .onboarding-step-title {
+    font-size: 1.2rem;
+  }
+
+  .onboarding-button-row {
+    flex-direction: column-reverse;
+    gap: 0.65rem;
+  }
+
+  .onboarding-button-row button {
+    width: 100%;
+  }
+
+  .onboarding-income-item {
+    padding-bottom: 0.75rem;
+  }
+
+  .onboarding-income-summary {
+    align-items: flex-start;
+  }
+
+  .onboarding-income-editor {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0.55rem;
+  }
+
+  .onboarding-income-editor .onboarding-field:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .onboarding-expense-item {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0.55rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .onboarding-expense-item .onboarding-field:nth-child(1),
+  .onboarding-expense-item .onboarding-field:nth-child(2) {
+    grid-column: span 1;
+  }
+
+  .onboarding-expense-item .onboarding-field:nth-child(3),
+  .onboarding-expense-item .onboarding-field:nth-child(4) {
+    grid-column: span 1;
+  }
+
   .welcome-peek-wrap {
     width: 80px;
     height: 100px;

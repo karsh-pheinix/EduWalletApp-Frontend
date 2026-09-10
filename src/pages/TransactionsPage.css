@@ -1,0 +1,233 @@
+.tx-page { 
+  padding: 2rem 2.5rem; 
+  font-family: 'Inter', sans-serif; 
+}
+
+.tx-state-message { 
+  padding: 3rem; 
+  color: #6b7280; 
+}
+
+.tx-header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 1.5rem; 
+}
+
+.tx-title { 
+  font-size: 1.6rem; 
+  font-weight: 700; 
+  color: #14151a; 
+  margin: 0; 
+}
+
+.tx-input { 
+  width: 100%;
+  padding: 0.6rem 0.8rem; 
+  border: 1px solid #e2e5ea; 
+  border-radius: 8px; 
+  font-size: 0.9rem; 
+  font-family: 'Inter', sans-serif; 
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.tx-period-select { 
+  min-width: 180px; 
+  width: auto;
+}
+
+.tx-error-banner { 
+  background: #fdecec; 
+  border: 1px solid #f5b5b5; 
+  color: #b42318; 
+  font-size: 0.85rem; 
+  padding: 0.65rem 0.85rem; 
+  border-radius: 8px; 
+  margin-bottom: 1.25rem; 
+}
+
+.tx-tabs { 
+  display: flex; 
+  gap: 0.5rem; 
+  margin-bottom: 1.5rem; 
+  border-bottom: 1px solid #e2e5ea; 
+}
+
+.tx-tab { 
+  background: none; 
+  border: none; 
+  padding: 0.75rem 1rem; 
+  font-size: 0.9rem; 
+  font-weight: 600; 
+  color: #6b7280; 
+  cursor: pointer; 
+  border-bottom: 2px solid transparent; 
+}
+
+.tx-tab.active { 
+  color: var(--accent); 
+  border-bottom-color: var(--accent); 
+}
+
+.tx-variance-card, .tx-form-card { 
+  background: #ffffff; 
+  border: 1px solid #eef0f3; 
+  border-radius: 14px; 
+  padding: 1.5rem 1.75rem; 
+}
+
+/* Enhanced Money Overview / Disposable Card */
+.budget-disposable-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--primary);
+  color: var(--primary-contrast);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  box-shadow: 0 8px 24px rgba(11,37,69,0.12);
+}
+
+.budget-disposable-card h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: inherit;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding-bottom: 0.5rem;
+}
+
+.budget-disposable-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+  font-size: 0.88rem;
+  opacity: 0.9;
+}
+
+.budget-disposable-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.tx-success-banner { 
+  background: rgba(236, 253, 245, 0.9); 
+  border-left: 4px solid var(--accent); 
+  padding: 0.6rem 0.8rem; 
+  border-radius: 8px; 
+  margin-bottom: 0.8rem; 
+  color: #065f46;
+  font-size: 0.9rem;
+}
+
+.tx-empty-state { 
+  color: #9aa1ac; 
+  font-size: 0.88rem; 
+}
+
+.tx-variance-table { 
+  width: 100%; 
+  border-collapse: collapse; 
+  font-size: 0.88rem; 
+}
+
+.tx-variance-table th { 
+  text-align: left; 
+  color: #6b7280; 
+  font-weight: 600; 
+  font-size: 0.78rem; 
+  padding-bottom: 0.6rem; 
+  border-bottom: 1px solid #eef0f3; 
+}
+
+.tx-variance-table td { 
+  padding: 0.7rem 0; 
+  border-bottom: 1px solid #f4f5f7; 
+  color: #14151a; 
+}
+
+.tx-variance-negative { 
+  color: #b42318; 
+  font-weight: 600; 
+}
+
+.tx-variance-positive { 
+  color: var(--accent); 
+  font-weight: 600; 
+}
+
+.tx-progress-track { 
+  width: 80px; 
+  height: 5px; 
+  background: #e2e5ea; 
+  border-radius: 999px; 
+  overflow: hidden; 
+}
+
+.tx-progress-fill { 
+  height: 100%; 
+  background: var(--accent); 
+}
+
+.tx-progress-fill.over { 
+  background: #d9694f; 
+}
+
+.tx-form-row { 
+  display: flex; 
+  gap: 1rem; 
+  margin-bottom: 1rem; 
+}
+
+.tx-field { 
+  flex: 1; 
+  margin-bottom: 1rem; 
+}
+
+.tx-field-label { 
+  display: block; 
+  font-size: 0.82rem; 
+  font-weight: 600; 
+  color: #14151a; 
+  margin-bottom: 0.35rem; 
+}
+
+.tx-primary-btn { 
+  width: 100%;
+  background: var(--accent); 
+  color: #fff; 
+  border: none; 
+  border-radius: 8px; 
+  padding: 0.75rem 1.4rem; 
+  font-size: 0.9rem; 
+  font-weight: 600; 
+  cursor: pointer; 
+  transition: background 0.2s ease;
+}
+
+.tx-primary-btn:hover:not(:disabled) { 
+  opacity: 0.92; 
+}
+
+.tx-primary-btn:disabled { 
+  background: #9bd8cf; 
+  cursor: not-allowed; 
+}
+
+.tx-import-note { 
+  font-size: 0.8rem; 
+  color: #9aa1ac; 
+  margin-top: 1rem; 
+  margin-bottom: 0; 
+  text-align: center;
+}

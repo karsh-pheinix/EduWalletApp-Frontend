@@ -1,0 +1,11 @@
+.tips-page { padding: 2rem 2.5rem; font-family: 'Inter', sans-serif; }
+.tips-state-message { padding: 3rem; color: #6b7280; }
+.tips-header { margin-bottom: 1.5rem; }
+.tips-title { font-size: 1.6rem; font-weight: 700; color: #14151a; margin: 0; }
+.tips-error-banner { background: #fdecec; border: 1px solid #f5b5b5; color: #b42318; font-size: 0.85rem; padding: 0.65rem 0.85rem; border-radius: 8px; margin-bottom: 1.25rem; }
+.tips-empty-state { color: #9aa1ac; font-size: 0.88rem; }
+.tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+.tips-card { background: #ffffff; border: 1px solid #eef0f3; border-radius: 14px; padding: 1.25rem 1.4rem; }
+.tips-card-category { display: inline-block; background: var(--accent-bg); color: var(--accent); font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.6rem; }
+.tips-card-title { font-size: 1rem; font-weight: 700; color: #14151a; margin: 0 0 0.5rem; }
+.tips-card-content { font-size: 0.85rem; color: #6b7280; line-height: 1.5; margin: 0; }

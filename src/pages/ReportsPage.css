@@ -1,0 +1,19 @@
+.rp-page { padding: 2rem 2.5rem; font-family: 'Inter', sans-serif; }
+.rp-state-message { padding: 3rem; color: #6b7280; }
+.rp-header { margin-bottom: 1.5rem; }
+.rp-title { font-size: 1.6rem; font-weight: 700; color: #14151a; margin: 0; }
+.rp-error-banner { background: #fdecec; border: 1px solid #f5b5b5; color: #b42318; font-size: 0.85rem; padding: 0.65rem 0.85rem; border-radius: 8px; margin-bottom: 1.25rem; }
+.rp-generate-card { display: flex; gap: 0.75rem; margin-bottom: 1.75rem; }
+.rp-input { padding: 0.6rem 0.8rem; border: 1px solid #e2e5ea; border-radius: 8px; font-size: 0.9rem; }
+.rp-primary-btn { background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 0.65rem 1.2rem; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
+.rp-primary-btn:disabled { background: #9bd8cf; cursor: not-allowed; }
+.rp-empty-state { color: #9aa1ac; font-size: 0.88rem; }
+.rp-list { display: flex; flex-direction: column; gap: 1rem; max-width: 720px; }
+.rp-card { background: #ffffff; border: 1px solid #eef0f3; border-radius: 14px; padding: 1.25rem 1.5rem; }
+.rp-card-header { display: flex; justify-content: space-between; margin-bottom: 1rem; }
+.rp-card-date { font-size: 0.85rem; color: #6b7280; font-weight: 600; }
+.rp-card-archetype { background: var(--accent-bg); color: var(--accent); font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 999px; }
+.rp-card-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+.rp-card-label { font-size: 0.75rem; color: #9aa1ac; margin: 0 0 0.2rem; }
+.rp-card-value { font-size: 0.95rem; font-weight: 700; color: #14151a; margin: 0; }
+@media (max-width: 700px) { .rp-card-grid { grid-template-columns: repeat(2, 1fr); } }

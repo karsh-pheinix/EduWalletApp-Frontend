@@ -1,9 +1,19 @@
 :root {
   --text: #6d7b7f;
   --text-h: #17252b;
-  --bg: #fbfaf7;
-  --border: #dfe8e3;
+  --bg: #e9f5f1;
+  --border: #d7e5df;
   --accent: #087f73;
+  --primary: #0b2545;
+  --primary-dark: #08203a;
+  --primary-contrast: #ffffff;
+  --secondary: #064e3b;
+  --secondary-dark: #0a6b57;
+  --focus: #2563eb;
+  --muted: #374151;
+  --sidebar-bg: #183d3a;
+  --sidebar-text: #ffffff;
+  --sidebar-text-muted: rgba(255,255,255,0.65);
   --accent-bg: rgba(8, 127, 115, 0.1);
   --accent-border: rgba(8, 127, 115, 0.4);
   --sans: 'DM Sans', 'Segoe UI', sans-serif;
@@ -46,4 +56,15 @@ p {
 button,
 input {
   font: inherit;
+}
+
+input[type='number'] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
 }

@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { apiPost, setAccessToken } from "../services/apiClient";
+import { scheduleFeedbackAfterOnboarding, scheduleFeedbackPrompt } from "../services/feedbackScheduler";
 import LoadingScreen from "../components/LoadingScreen";
 import MoneyPic2 from "../assets/MoneyPic2.jpg";
 import "./AuthPages.css";
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function clearValidity(e) {
   e.currentTarget.setCustomValidity("");
@@ -11,6 +14,19 @@ function clearValidity(e) {
 
 function showValidityMessage(e, message) {
   e.currentTarget.setCustomValidity(message);
+}
+
+function getEmailError(value) {
+  const trimmed = String(value ?? "").trim();
+  if (!trimmed) return "Email is required.";
+  if (!EMAIL_PATTERN.test(trimmed)) return "Email is invalid. Use the format name@domain.com.";
+  return "";
+}
+
+function getPasswordError(value) {
+  if (!value) return "Password is required.";
+  if (String(value).length < 8) return "Password must be at least 8 characters long.";
+  return "";
 }
 
 function LoginPage() {
@@ -21,21 +37,51 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [showLoadingScreen, setShowLoadingScreen] = useState(false);
 
+  function updateFieldError(field, message) {
+    setFieldErrors((prev) => ({ ...prev, [field]: message }));
+  }
+
+  function validateLoginForm() {
+    const nextErrors = {
+      email: getEmailError(email),
+      password: getPasswordError(password),
+    };
+    setFieldErrors(nextErrors);
+
+    const invalidField = Object.entries(nextErrors).find(([, value]) => value)?.[0];
+    if (invalidField) {
+      const input = document.getElementById(invalidField);
+      if (input) {
+        input.setCustomValidity(nextErrors[invalidField]);
+        input.reportValidity();
+      }
+      setError("Please fix the highlighted login field.");
+      return false;
+    }
+
+    setError("");
+    return true;
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
-    setError("");
+    if (!validateLoginForm()) return;
     setLoading(true);
 
     try {
-      const data = await apiPost("/Auth/login", { email, password });
+      const data = await apiPost("/Auth/login", { email: email.trim(), password });
       setAccessToken(data.accessToken);
+      localStorage.setItem("isAdmin", String(data.isAdmin));
+      if (data.onboardingComplete) scheduleFeedbackPrompt();
+      else scheduleFeedbackAfterOnboarding();
 
       setShowLoadingScreen(true);
       setTimeout(() => {
-        navigate(data.onboardingComplete ? "/dashboard" : "/onboarding");
+        navigate(data.isAdmin ? "/admin" : data.onboardingComplete ? "/dashboard" : "/onboarding");
       }, 5000);
     } catch (err) {
       setError(err.message);
@@ -126,13 +172,21 @@ function LoginPage() {
                 id="email"
                 className="auth-field-input"
                 type="email"
+                autoComplete="username"
                 placeholder="student@university.ac.za"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                aria-invalid={Boolean(fieldErrors.email)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (fieldErrors.email) updateFieldError("email", getEmailError(e.target.value));
+                  clearValidity(e);
+                }}
+                onBlur={(e) => updateFieldError("email", getEmailError(e.target.value))}
                 onInput={clearValidity}
-                onInvalid={(e) => showValidityMessage(e, "Please enter your university email address.")}
+                onInvalid={(e) => showValidityMessage(e, getEmailError(e.target.value))}
                 required
               />
+              {fieldErrors.email && <div className="auth-field-error">{fieldErrors.email}</div>}
             </div>
 
             <div className="auth-field">
@@ -142,11 +196,18 @@ function LoginPage() {
                   id="password"
                   className="auth-field-input"
                   type={showPassword ? "text" : "password"}
+                  autoComplete="current-password"
                   placeholder="Enter your password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  aria-invalid={Boolean(fieldErrors.password)}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    if (fieldErrors.password) updateFieldError("password", getPasswordError(e.target.value));
+                    clearValidity(e);
+                  }}
+                  onBlur={(e) => updateFieldError("password", getPasswordError(e.target.value))}
                   onInput={clearValidity}
-                  onInvalid={(e) => showValidityMessage(e, "Please enter your password.")}
+                  onInvalid={(e) => showValidityMessage(e, getPasswordError(e.target.value))}
                   required
                 />
                 <button
@@ -157,6 +218,7 @@ function LoginPage() {
                   {showPassword ? "Hide" : "Show"}
                 </button>
               </div>
+              {fieldErrors.password && <div className="auth-field-error">{fieldErrors.password}</div>}
             </div>
 
             <div className="auth-row-between">
@@ -164,7 +226,7 @@ function LoginPage() {
                 <input type="checkbox" />
                 Remember me
               </label>
-              <a className="auth-link" href="#">Forgot password?</a>
+              <Link className="auth-link" to="/forgot-password">Forgot password?</Link>
             </div>
 
             <button type="submit" className="auth-primary-button" disabled={loading}>
